@@ -1,0 +1,63 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.so
+*.ipynb_checkpoints
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Environment variables and secrets
+.env
+*.env
+
+# Virtual environments
+venv/
+.env/
+env/
+ENV/
+*.egg-info/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# VS Code settings
+.vscode/
+
+# Pytest cache
+.pytest_cache/
+
+# Build artifacts
+build/
+dist/
+*.egg
+*.bak
+
+# OS-specific
+*.swp
+*.swo
+
+# Node (if any JS used)
+node_modules/
+
+# Data files (optional)
+*.csv
+*.tsv
+*.db
+*.sqlite3
+*.h5
+*.parquet
+
+# Model weights and outputs
+*.pth
+*.pt
+*.hdf5
+runs/
+
+# Backup files
+*~
+creds/credentials.json
