@@ -60,4 +60,6 @@ runs/
 
 # Backup files
 *~
-creds/credentials.json
+config/credentials.json
+token.json
+logs/

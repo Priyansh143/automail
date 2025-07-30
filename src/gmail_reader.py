@@ -1,16 +1,29 @@
 # src/gmail_reader.py
-
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
+from google.oauth2.credentials import Credentials
+from google.auth.transport.requests import Request
 import base64
 import email
 from bs4 import BeautifulSoup
 from cleaning import clean_email_body
+from exception import CustomException
+from logger import logging
+import os
 
 def get_service():
     SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
-    flow = InstalledAppFlow.from_client_secrets_file('creds/credentials.json', SCOPES)
-    creds = flow.run_local_server(port=0)
+    creds = None
+    if os.path.exists('token.json'):
+        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file('creds/credentials.json', SCOPES)
+            creds = flow.run_local_server(port=0)
+        with open('token.json', 'w') as token:
+            token.write(creds.to_json())
     return build('gmail', 'v1', credentials=creds)
 
 def get_unread_emails(service):
@@ -68,20 +81,19 @@ def extract_email_details(service, message_id):
         'body': body
     }
 
+# if __name__ == "__main__":
+#     service = get_service()
+#     unread_messages = get_unread_emails(service)
 
-if __name__ == "__main__":
-    service = get_service()
-    unread_messages = get_unread_emails(service)
-
-    if not unread_messages:
-        print("No unread messages.")
-    else:
-        print(f"Found {len(unread_messages)} unread messages.\n")
-        for msg in unread_messages:
-            msg_id = msg['id']
-            email_data = extract_email_details(service, msg_id)
-            print("="*40)
-            print(f"From: {email_data['from']}")
-            print(f"Subject: {email_data['subject']}")
-            print(f"Date: {email_data['date']}")
-            print(f"Body:\n{clean_email_body(email_data['body'][:500])}")  # Preview first 500 chars
+#     if not unread_messages:
+#         print("No unread messages.")
+#     else:
+#         print(f"Found {len(unread_messages)} unread messages.\n")
+#         for msg in unread_messages:
+#             msg_id = msg['id']
+#             email_data = extract_email_details(service, msg_id)
+#             print("="*40)
+#             print(f"From: {email_data['from']}")
+#             print(f"Subject: {email_data['subject']}")
+#             print(f"Date: {email_data['date']}")
+#             print(f"Body:\n{clean_email_body(email_data['body'][:500])}")  # Preview first 500 chars
