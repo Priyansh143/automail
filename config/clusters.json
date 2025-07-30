@@ -1,0 +1,34 @@
+{
+    "clusters": [
+        {
+            "name": "Recruiter",
+            "keywords": [
+                "recruiter",
+                "interview",
+                "schedule",
+                "hr",
+                "shortlisted"
+            ],
+            "auto_reply": true
+        },
+        {
+            "name": "Job Alert",
+            "keywords": [
+                "job alert",
+                "new job",
+                "hiring",
+                "vacancy"
+            ],
+            "auto_reply": false
+        },
+        {
+            "name": "Newsletter",
+            "keywords": [
+                "newsletter",
+                "update",
+                "news"
+            ],
+            "auto_reply": false
+        }
+    ]
+}

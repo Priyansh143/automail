@@ -1,0 +1,14 @@
+name: Priyansh Kashyap
+email: priyansh.kashyap25@gmail.com
+role: Data Scientist | Python Developer | ML Engineer
+education: "B.Tech in Computer Science, 2025"
+skills:
+  - Python
+  - Machine Learning
+  - NLP
+  - LLMs
+  - Flask
+experience: "1 year experience as a Machine Learning Intern at XYZ Inc."
+projects:
+  - Resume Matcher using NLP
+  - Gmail Email Assistant
