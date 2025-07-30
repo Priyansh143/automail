@@ -1,0 +1,50 @@
+/* Background */
+body {
+    background-color: #fac283;
+}
+
+/* Centered Header */
+h1 {
+    text-align: center;
+    background-color: #fe856d;
+    color: white;
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Customize section headers */
+h2, h3 {
+    font-family: 'Segoe UI', sans-serif;
+    color: #34495e;
+}
+
+/* Make expanders look sleeker */
+.st-expander {
+    background-color: #ecf0f1 !important;
+    border-radius: 10px;
+    padding: 0.5rem;
+}
+
+/* Style buttons */
+button {
+    border-radius: 10px;
+}
+
+/* Optional: Card-like look for cluster items */
+.cluster-card {
+    background-color: #ffffff;
+    padding: 1rem;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Rounded buttons */
+button {
+  border-radius: 10px;
+}
+
+/* Hide default Streamlit header/footer */
+#MainMenu, footer, header { visibility: hidden; }
