@@ -2,21 +2,20 @@ import yaml
 import subprocess
 import json
 
-# ✅ 1. Load Profile (unchanged)
+#  1. Load Profile 
 def load_profile(path="config/profile.yaml"):
     with open(path, "r") as f:
         return yaml.safe_load(f)
 
-# ✅ 2. Load Local Ollama Model (just confirms availability)
+#  2. Load Local Ollama Model 
 def load_model_ollama(model_name="gemma3:4b"):
-    # Optional: verify model is pulled
     result = subprocess.run(["ollama", "list"], capture_output=True, text=True)
     if model_name.split(":")[0] not in result.stdout:
         raise Exception(f"Model {model_name} not found. Run `ollama pull {model_name}` first.")
     print(f"✅ Using local Ollama model: {model_name}")
     return model_name
 
-# ✅ 3. Generate Email Reply with Ollama
+#  3. Generate Email Reply with Ollama
 def generate_reply(email_body: str, sender: str, profile: dict, model_name="gemma3:4b") -> str:
     prompt = (
         f"You are {profile['name']}, a {profile['role']}. You have skills {profile['skills']}. "

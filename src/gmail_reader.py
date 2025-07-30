@@ -10,6 +10,7 @@ from cleaning import clean_email_body
 from exception import CustomException
 from logger import logging
 import os
+import re
 
 def get_service():
     SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
@@ -26,74 +27,75 @@ def get_service():
             token.write(creds.to_json())
     return build('gmail', 'v1', credentials=creds)
 
-def get_unread_emails(service):
-    results = service.users().messages().list(userId='me', labelIds=['INBOX'], q="is:unread", maxResults=10).execute()
+def get_unread_emails(service, maxResults):
+    results = service.users().messages().list(userId='me', labelIds=['INBOX'], q="is:unread", maxResults=maxResults).execute()
     messages = results.get('messages', [])
     return messages if messages else []
 
-def extract_email_details(service, message_id):
-    import re
-    message = service.users().messages().get(userId='me', id=message_id, format='full').execute()
-    headers = message['payload']['headers']
+def extract_all_email_details(service, messages):
+    email_details_list = []
 
-    def get_header(name):
-        return next((h['value'] for h in headers if h['name'].lower() == name.lower()), None)
+    for msg in messages:
+        message_id = msg['id']
+        try:
+            message = service.users().messages().get(userId='me', id=message_id, format='full').execute()
+            # print(message)
+            headers = message['payload']['headers']
+            # print(headers)
 
-    subject = get_header('Subject')
-    sender = get_header('From')
-    date = get_header('Date')
-    snippet = message.get('snippet')
+            def get_header(name):
+                return next((h['value'] for h in headers if h['name'].lower() == name.lower()), None)
 
-    def decode_and_clean(data, mime_type):
-        decoded = base64.urlsafe_b64decode(data).decode('utf-8', errors='replace')
-        if mime_type == 'text/html':
-            soup = BeautifulSoup(decoded, 'html.parser')
-            text = soup.get_text(separator=' ', strip=True)
-        else:
-            text = decoded
+            subject = get_header('Subject')
+            sender = get_header('From')
+            date = get_header('Date')
+            snippet = message.get('snippet')
 
-        # Clean up excess whitespace and artifacts
-        text = re.sub(r'\s+', ' ', text)
-        text = text.replace(u'\xa0', ' ').strip()
-        return text
+            def decode_and_clean(data, mime_type):
+                decoded = base64.urlsafe_b64decode(data).decode('utf-8', errors='replace')
+                if mime_type == 'text/html':
+                    soup = BeautifulSoup(decoded, 'html.parser')
+                    text = soup.get_text(separator=' ', strip=True)
+                else:
+                    text = decoded
+                return re.sub(r'\s+', ' ', text).replace(u'\xa0', ' ').strip()
 
-    # Recursive part traversal
-    def get_body(payload):
-        if 'parts' in payload:
-            for part in payload['parts']:
-                result = get_body(part)
-                if result:
-                    return result
-        else:
-            body_data = payload.get('body', {}).get('data')
-            mime_type = payload.get('mimeType', '')
-            if body_data and ('text/plain' in mime_type or 'text/html' in mime_type):
-                return decode_and_clean(body_data, mime_type)
-        return ""
+            def get_body(payload):
+                if 'parts' in payload:
+                    for part in payload['parts']:
+                        result = get_body(part)
+                        if result:
+                            return result
+                else:
+                    body_data = payload.get('body', {}).get('data')
+                    mime_type = payload.get('mimeType', '')
+                    if body_data and ('text/plain' in mime_type or 'text/html' in mime_type):
+                        return decode_and_clean(body_data, mime_type)
+                return ""
 
-    body = get_body(message['payload'])
+            body = get_body(message['payload'])
+            
+            print("subject: ", subject)
+            print('body', body)
+            
+            
+            email_details_list.append({
+                'subject': subject,
+                'from': sender,
+                'date': date,
+                'snippet': snippet,
+                'body': body
+            })
 
-    return {
-        'subject': subject,
-        'from': sender,
-        'date': date,
-        'snippet': snippet,
-        'body': body
-    }
+        except Exception as e:
+            logging.error(f"Failed to extract email with ID {message_id}: {str(e)}")
+
+    return email_details_list
+
 
 # if __name__ == "__main__":
-#     service = get_service()
-#     unread_messages = get_unread_emails(service)
 
-#     if not unread_messages:
-#         print("No unread messages.")
-#     else:
-#         print(f"Found {len(unread_messages)} unread messages.\n")
-#         for msg in unread_messages:
-#             msg_id = msg['id']
-#             email_data = extract_email_details(service, msg_id)
-#             print("="*40)
-#             print(f"From: {email_data['from']}")
-#             print(f"Subject: {email_data['subject']}")
-#             print(f"Date: {email_data['date']}")
-#             print(f"Body:\n{clean_email_body(email_data['body'][:500])}")  # Preview first 500 chars
+#     service = get_service()
+#     messages = get_unread_emails(service, maxResults=10)
+#     all_email_data = extract_all_email_details(service, messages)
+#     # print(messages)

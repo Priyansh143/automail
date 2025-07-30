@@ -19,7 +19,7 @@
                 "hiring",
                 "vacancy"
             ],
-            "auto_reply": false
+            "auto_reply": true
         },
         {
             "name": "Newsletter",
