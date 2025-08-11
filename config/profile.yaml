@@ -1,14 +1,152 @@
 name: Priyansh Kashyap
 email: priyansh.kashyap25@gmail.com
-role: Data Scientist | Python Developer | ML Engineer
-education: "B.Tech in Computer Science, 2025"
-skills:
-  - Python
-  - Machine Learning
-  - NLP
-  - LLMs
-  - Flask
-experience: "1 year experience as a Machine Learning Intern at XYZ Inc."
+phone: "+91-9818144983"
+linkedin: https://linkedin.com/in/priyansh-kashyap-530815266
+github: https://github.com/Priyansh143
+role: Data Scientist | ML Engineer | Python Developer | Generative AI Specialist
+
+summary: >
+  Passionate and results-driven Data Scientist and ML Engineer with hands-on experience 
+  building end-to-end machine learning systems, deploying LLM-powered applications, 
+  and delivering data-driven insights. Skilled in deep learning, NLP, LangChain-based RAG apps, 
+  and production-grade model deployment. Adept at solving real-world problems with clean, efficient code.
+
+education:
+  - degree: B.Tech in Computer Science (AI/ML)
+    institution: Bharati Vidyapeeth's College of Engineering
+    graduation_year: 2025
+  - degree: Non-Medical Sciences (CBSE)
+    institution: Adarsh Public School
+    graduation_year: 2021
+
+experience:
+  - title: Data Science Intern
+    company: Eicore Technologies Pvt Ltd
+    duration: Oct 2024 – Jan 2025
+    location: Gurugram, India
+    responsibilities:
+      - Developed an ML-based insurance policy approval system with 94% accuracy.
+      - Implemented two model variants with Explainable AI (XAI) for interpretable decisions.
+      - Deployed model via Flask + Waitress API for real-time internal use.
+
+  - title: Data Analyst Intern
+    company: Twelfth Man Times
+    duration: Jun 2024 – Jul 2024
+    location: Noida, India
+    responsibilities:
+      - Analyzed player stats, game trends, and audience engagement using Python, SQL, Power BI.
+      - Created dashboards and reports for performance tracking and strategic insights.
+
 projects:
-  - Resume Matcher using NLP
-  - Gmail Email Assistant
+  - name: Document Q&A Web App using NVIDIA NIM
+    tech_stack: [Python, Streamlit, FAISS, LangChain, Llama 3.3, NVIDIA NIM]
+    description: >
+      Built a natural language Q&A system over PDFs using Llama 3.3–70B-instruct, LangChain retrieval chains,
+      and semantic search via FAISS. Deployed with a Streamlit interface for real-time user interaction.
+
+  - name: Alzheimer’s Stage Classification using CNNs
+    tech_stack: [Python, TensorFlow, EfficientNet, SMOTE, OASIS, Streamlit]
+    description: >
+      Developed CNN models with ordinal learning for classifying Alzheimer's disease stages.
+      Achieved 98% accuracy and 0.97 Scott's Pi. Addressed class imbalance and deployed via Streamlit for medical accessibility.
+
+  - name: Math & Data Reasoning Assistant
+    tech_stack: [Python, Streamlit, LangChain, Gemma 2, Groq API, Wikipedia API]
+    description: >
+      Created a reasoning assistant using LangChain + Gemma 2 for solving math problems and logic queries.
+      Integrated Wikipedia search tools and deployed with real-time Streamlit interface.
+
+  - name: Sales & Customer Insights Dashboard
+    tech_stack: [PostgreSQL, Tableau, Excel]
+    description: >
+      Cleaned and transformed a 60k+ row dataset, built dynamic dashboards visualizing sales, geography,
+      and customer segments using Tableau and PostgreSQL.
+
+skills:
+  domains: 
+    - Machine Learning
+    - Deep Learning
+    - NLP
+    - Generative AI
+    - LLMOps
+    - Prompt Engineering
+    - RAG Systems
+    - MLOps
+    - System Deployment
+    - Data Analysis
+    - Front-End Development
+
+  programming_languages:
+    - Python
+    - C++
+    - Java
+    - SQL
+    - HTML
+    - CSS
+    - JavaScript
+
+  frameworks_libraries:
+    - LangChain
+    - LangGraph
+    - CrewAI
+    - Hugging Face
+    - TensorFlow
+    - Keras
+    - Scikit-learn
+    - Pandas
+    - Numpy
+    - Matplotlib
+    - Seaborn
+    - Streamlit
+    - Flask
+    - Airflow
+    - Spark
+    - MLflow
+    - DVC
+
+  databases:
+    - PostgreSQL
+    - MySQL
+    - AstraDB
+    - Chroma
+
+  tools_platforms:
+    - VS Code
+    - PyCharm
+    - Jupyter
+    - Colab
+    - Docker
+    - Git
+    - Groq
+    - Ollama
+    - LangSmith
+    - Lamini
+    - Nvidia NIM
+    - Astro Cloud
+    - Dagshub
+    - Grafana
+    - Power BI
+    - Tableau
+    - Excel
+
+courses_trainings:
+  - title: Generative AI with LangChain & Huggingface
+    provider: Udemy
+
+  - title: Data Science Placement Guarantee Program
+    provider: Internshala Trainings
+
+relevant_coursework:
+  - Object-Oriented Programming (C++, Java)
+  - DBMS
+  - Operating Systems
+  - Data Structures & Algorithms
+  - Probability & Statistics
+  - Statistical Modeling
+  - Web Technologies
+  - Software Engineering
+  - Reinforcement Learning
+  - Pattern Recognition
+  - Computer Vision
+  - Cloud Computing
+  - Data Warehousing & Mining
