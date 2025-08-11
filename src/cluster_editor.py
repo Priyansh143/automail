@@ -1,7 +1,7 @@
 import json
 import os
 
-CLUSTERS_FILE = 'C:\\Users\\priyansh\\Downloads\\AutoEmail\\config\\clusters.json'
+CLUSTERS_FILE = 'config\\clusters.json'
 
 def add_new_cluster(cluster_data):
     if not os.path.exists(CLUSTERS_FILE):

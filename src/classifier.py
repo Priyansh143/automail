@@ -4,7 +4,7 @@ import json
 import re
 from logger import logging
 # Load the clusters (user-defined categories and keywords)
-def load_clusters(path='C:\\Users\\priyansh\\Downloads\\AutoEmail\\config\\clusters.json'):
+def load_clusters(path='config\\clusters.json'):
     with open(path, 'r') as file:
         return json.load(file)
 
