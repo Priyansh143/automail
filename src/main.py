@@ -25,7 +25,7 @@ def load_resources(_service,unread_messages):
 
 # Load css styling
 def inject_custom_css():
-    with open("C:\\Users\\priyansh\\Downloads\\AutoEmail\\src\\style.css") as f:
+    with open("src\\style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 
@@ -41,6 +41,11 @@ st.title("📧 Auto Email Classifier + Responder")
 
 # Filter toggle: All vs Auto-Reply Only
 view_mode = st.radio("📂 View Emails", ["Show All", "Filtered (Auto-Reply Enabled)"], horizontal=True)
+
+if st.button('Clear Cache and Reload'):
+    st.cache_data.clear()  # This will clear the cache
+    all_email_data, clusters = load_resources(service, unread_messages)  # Reload resources
+    st.success("Cache cleared and resources reloaded!")
 
 
 # Section 1: Display emails
