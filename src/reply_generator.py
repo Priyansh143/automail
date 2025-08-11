@@ -17,27 +17,38 @@ def load_model_ollama(model_name="gemma3:4b"):
 
 #  3. Generate Email Reply with Ollama
 def generate_reply(email_body: str, sender: str, profile: dict, model_name="gemma3:4b") -> str:
+    # Flatten and format relevant parts of the profile
+    name = profile.get("name", "A Professional")
+    role = profile.get("role", "Data Scientist")
+    tone = profile.get("preferred_tone", "professional")
+    
+    # Combine domain and tech skills into a single string
+    domain_skills = ", ".join(profile.get("skills", {}).get("domains", []))
+    languages = ", ".join(profile.get("skills", {}).get("programming_languages", []))
+    frameworks = ", ".join(profile.get("skills", {}).get("frameworks_libraries", []))
+    
+    combined_skills = f"{domain_skills}, {languages}, {frameworks}"
+
     prompt = (
-        f"You are {profile['name']}, a {profile['role']}. You have skills {profile['skills']}. "
-        f"Write a concise and {profile.get('preferred_tone', 'professional')} reply to the email below:\n\n"
+        f"You are {name}, currently working as {role}. "
+        f"You possess expertise in {combined_skills}. "
+        f"Write a {tone} reply to the email below, maintaining clarity and professionalism.\n\n"
         f"From: {sender}\n"
         f"Message: {email_body}\n\n"
         "Reply:\n"
     )
 
     response = subprocess.run(
-    ["ollama", "run", model_name],
-    input=prompt,
-    text=True,
-    capture_output=True,
-    encoding="utf-8",   
-    errors="ignore"     
+        ["ollama", "run", model_name],
+        input=prompt,
+        text=True,
+        capture_output=True,
+        encoding="utf-8",
+        errors="ignore"
     )
 
-    if response.returncode != 0:
-        raise RuntimeError(f"❌ Ollama Error:\n{response.stderr}")
-
     return response.stdout.strip()
+
 
 # # ✅ 4. Standalone Test
 # if __name__ == "__main__":
